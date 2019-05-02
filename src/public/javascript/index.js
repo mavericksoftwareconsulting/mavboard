@@ -320,3 +320,20 @@ function toggleThemePicker(show) {
 		themes.classList.add('hidden');
 	}
 }
+
+document.body.onkeydown = function(e) {
+	if (e.keyCode == 32) {
+		if (window.paused) {
+			window.music.mopidy.playback.play();
+		}
+		else {
+			window.music.mopidy.playback.pause();
+		}
+	}
+	if (e.keyCode == 39) {
+		window.music.mopidy.playback.next();
+	}
+	if (e.keyCode == 37) {
+		window.music.mopidy.playback.previous();
+	}
+}

@@ -28,18 +28,7 @@ xmlH.open("GET", "/currentTime", true);
 xmlH.send();
 
 class SpotifyController {
-  rpcURL: string;
-  wsURL: string;
-  mopidy: Mopidy;
-  online: boolean;
-  state: {
-    online: boolean,
-    currentTrack: {},
-    nextTrack: {},
-    previousTrack: {},
-  };
-
-  constructor(): void {
+  constructor() {
     // maverick pi
     this.rpcURL = 'http://192.168.140.99:6680/mopidy/rpc';
     this.wsURL = 'ws://192.168.140.99:6680/mopidy/ws';
@@ -51,8 +40,8 @@ class SpotifyController {
     // establish Mopidy API connection
     this.initMopidy().then((m) => {
       this.mopidy = m;
-      const evt: Event = new Event('spotifyready');
-      const spotifyDiv: any = document.querySelector('.spotify');
+      const evt = new Event('spotifyready');
+      const spotifyDiv = document.querySelector('.spotify');
       if (spotifyDiv) {
         spotifyDiv.dispatchEvent(evt);
       } else {
@@ -69,7 +58,7 @@ class SpotifyController {
     }
   }
 
-  initMopidy(): Mopidy {
+  initMopidy() {
     return new Promise((resolve, reject) => {
       const mopidy = new Mopidy({
         autoConnect: true,
@@ -145,31 +134,33 @@ class SpotifyController {
     });
   }
 
-  sptPlay(): void {
+  sptPlay() {
     if (this.state.online) {
       this.mopidy.playback.play();
+      window.paused = false;
     }
   }
 
-  sptPause(): void {
+  sptPause() {
     if (this.state.online) {
       this.mopidy.playback.pause();
+      window.paused = true;
     }
   }
 
-  sptPreviousTrack(): void {
+  sptPreviousTrack() {
     if (this.state.online) {
       this.mopidy.playback.previous();
     }
   }
 
-  sptNextTrack(): void {
+  sptNextTrack() {
     if (this.state.online) {
       this.mopidy.playback.next();
     }
   }
 
-  syncState(evt): void {
+  syncState(evt) {
     console.log("event: ", evt);
     switch (evt) {
       case 'state:online':
