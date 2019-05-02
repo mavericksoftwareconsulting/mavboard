@@ -4,32 +4,42 @@
 
 1. Clone project from GitHub 
 
+Note: if installing on a RaspberryPi or other debian based OS, will need to run with `sudo` command, if not acting as the root user.
+
 ```sh
-git clone git@github.com:mavericksoftwareconsulting/mavboard.git
+$ git clone git@github.com:mavericksoftwareconsulting/mavboard.git
 ```
 
 2. Enter the new mavboard directory
 
 ```sh
-cd mavboard/
+$ cd mavboard/
 ```
 
 3. Install all dependencies
 
 ```sh
-npm install
+$ npm install
 ```
 
 
 ## Running mavboard
 
 ```sh
-npm start
+$ npm start
 ```
 
 Mavboard will run on http://localhost:3000
 
 ## Developing code
+
+This is a student based project at Maverick Software Consulting to display and control office music and office information at a central hub.  All additional developments and forks should be in the spirit of this, and focus on extending the Mavboard as a learning and teaching project for dynamic web design.
+
+### View Engine
+
+*PUG -> HBS*
+
+The Mavboard transitioned from a pug to an hbs view engine, and all views added to the client should be written in hbs.
 
 ### Compiling
 
