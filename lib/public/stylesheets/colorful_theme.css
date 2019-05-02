@@ -110,3 +110,29 @@ a {
 #time-bar {
   background: #ffffff;
 }
+#spotify-interative-list-container::-webkit-scrollbar {
+  width: 5px;
+}
+
+#spotify-interative-list-container::-webkit-scrollbar-track {
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px white;
+}
+
+#spotify-interative-list-container::-webkit-scrollbar-thumb {
+  background: #41f468;
+  border-radius: 10px;
+}
+#search-results::-webkit-scrollbar {
+  width: 5px;
+}
+
+#search-results::-webkit-scrollbar-track {
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px white;
+}
+
+#search-results::-webkit-scrollbar-thumb {
+  background: #41f468;
+  border-radius: 10px;
+}

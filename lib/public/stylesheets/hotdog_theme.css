@@ -74,3 +74,29 @@ a {
 #time-bar {
   background: #ff6100;
 }
+#spotify-interative-list-container::-webkit-scrollbar {
+  width: 5px;
+}
+
+#spotify-interative-list-container::-webkit-scrollbar-track {
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px red;
+}
+
+#spotify-interative-list-container::-webkit-scrollbar-thumb {
+  background: yellow;
+  border-radius: 10px;
+}
+#search-results::-webkit-scrollbar {
+  width: 5px;
+}
+
+#search-results::-webkit-scrollbar-track {
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px red;
+}
+
+#search-results::-webkit-scrollbar-thumb {
+  background: yellow;
+  border-radius: 10px;
+}
