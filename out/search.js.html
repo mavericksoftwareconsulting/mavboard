@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: search.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: search.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @author Nathan
+ *
+ * File used for modulating the search logic for searching spotify for the query.
+ */
+
+/**
+ * Function to seach spotify for the given query.  The query comes from what the user enters
+ * into the search bar on the dynamic page.
+ *
+ * @param {Event} e is the event passed in through the search being submitted
+ */
+function searchSpotify(e) {
+	e.preventDefault();
+	var container = document.getElementById('search-results-list');
+	var searchFor = document.getElementById('query').value;
+	window.music.mopidy.library.search({'any': searchFor}).then((res) => {
+		var results;
+		for (var i = 0; i &lt; res.length; i++) {
+			if (res[i].tracks) {
+				results = res[i];
+			}
+		}
+		var tracks = results.tracks;
+		container.innerHTML = '';
+		for (var i = 0; i &lt; tracks.length; i++) {
+			var track = tracks[i];
+			var elem = document.createElement('li');
+			elem.classList.add('interactive-track-item');
+			elem.innerHTML = `&lt;div class="ilist-row0 search-result">
+								&lt;p class="ilist-track-name">${track.name}&lt;/p>
+							  	&lt;p class="ilist-track-uri" style="display:none;" id='uri?${i}'>${track.uri}&lt;/p>
+							  	&lt;a class='search-item-options' id='play?${i}' onclick='playTrack(this, false)'>Play&lt;/a>
+							  	&lt;a class='search-item-options' id='playnext?${i}' onclick='playTrack(this, true)'>Play Next&lt;/a>
+							  	&lt;a class='search-item-options' id='addqueue?${i}' onclick='addTrackToQueue(this)'>Add to Queue&lt;/a>
+							  	&lt;a class='search-item-options' id='copyuri?${i}' onclick='copyTrackURI(this)'>Copy URI&lt;/a>
+							  &lt;/div>
+							  &lt;div class="ilist-row1 search-result">
+								  &lt;p class="ilist-track-artist">${track.artists[0].name}&lt;/p>
+								  &lt;p>|&lt;/p>
+								  &lt;p class="ilist-track-album">${track.album.name}&lt;/p>
+							  &lt;/div>`;
+			elem.id = 'track-list-item-' + i;
+			container.appendChild(elem);
+		}		
+	});
+}
+
+/**
+ * Function to play the track a user selects from the search menu.
+ * Can either play right now or play next.
+ *
+ * @param {DOMNode} elem is the search item html wrapper clicked on
+ * @param {boolean} next if true then play song next, if false then immediately play the song
+ */
+function playTrack(elem, next) {
+	var id = elem.id;
+	var uriId = next ? id.replace('playnext','uri') : id.replace('play','uri');
+
+	var _uri = document.getElementById(uriId).innerHTML;
+
+	window.music.mopidy.tracklist.getLength().then((len) => {
+		var pos = 1;
+		if (len &lt; 1) {
+			pos = 0;
+		}
+		window.music.mopidy.tracklist.add(null, pos, _uri);
+		if (!next) {
+			console.log(window.music.mopidy);
+			if (pos == 1) window.music.mopidy.playback.next();
+			window.music.mopidy.playback.play();
+		}
+	});
+}
+/**
+ * Add the searched for track to the spotify track queue (at the end)
+ */
+function addTrackToQueue(elem) {
+	var id = elem.id;
+	var uriId = id.replace('addqueue','uri');
+
+	var _uri = document.getElementById(uriId).innerHTML;
+	window.music.mopidy.tracklist.getLength().then((len) => {
+		window.music.mopidy.tracklist.add(null, len, _uri);
+	});
+}
+/**
+ * Copy the searched for track URI to the clipboard
+ */
+function copyTrackURI(elem) {
+	// the input item is hidden off the screen, so we can use it for clipboard copying.
+	var id = elem.id;
+	var uriId = id.replace('copyuri','uri');
+
+	var _uri = document.getElementById(uriId).innerHTML;
+
+	var input = document.getElementById('copy-to-ckipboard');
+	input.value = _uri;
+
+	input.select();
+	document.execCommand("copy");
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addTrackToQueue">addTrackToQueue</a></li><li><a href="global.html#buildDynamicWeatherFull">buildDynamicWeatherFull</a></li><li><a href="global.html#changeBgGradient">changeBgGradient</a></li><li><a href="global.html#changeTheme">changeTheme</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#containers">containers</a></li><li><a href="global.html#copyTrackURI">copyTrackURI</a></li><li><a href="global.html#currSlide">currSlide</a></li><li><a href="global.html#displayAllTimes">displayAllTimes</a></li><li><a href="global.html#displayDynamicContent">displayDynamicContent</a></li><li><a href="global.html#displayWeather">displayWeather</a></li><li><a href="global.html#enableClippy">enableClippy</a></li><li><a href="global.html#generateDepartureLi">generateDepartureLi</a></li><li><a href="global.html#generateList">generateList</a></li><li><a href="global.html#getWeatherDirectionUnicode">getWeatherDirectionUnicode</a></li><li><a href="global.html#ilistAllowDrop">ilistAllowDrop</a></li><li><a href="global.html#ilistDrag">ilistDrag</a></li><li><a href="global.html#ilistDropDelete">ilistDropDelete</a></li><li><a href="global.html#playTrack">playTrack</a></li><li><a href="global.html#refreshTransitTimes">refreshTransitTimes</a></li><li><a href="global.html#searchSpotify">searchSpotify</a></li><li><a href="global.html#slideShow">slideShow</a></li><li><a href="global.html#toggleConsume">toggleConsume</a></li><li><a href="global.html#toggleContent">toggleContent</a></li><li><a href="global.html#toggleDynamicPages">toggleDynamicPages</a></li><li><a href="global.html#toggleMute">toggleMute</a></li><li><a href="global.html#toggleSearch">toggleSearch</a></li><li><a href="global.html#toggleSpotifyDiv">toggleSpotifyDiv</a></li><li><a href="global.html#toggleThemePicker">toggleThemePicker</a></li><li><a href="global.html#trackNum">trackNum</a></li><li><a href="global.html#updateCoverArt">updateCoverArt</a></li><li><a href="global.html#updateTimeBar">updateTimeBar</a></li><li><a href="global.html#uri">uri</a></li><li><a href="global.html#volumeChanged">volumeChanged</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri May 03 2019 11:37:44 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

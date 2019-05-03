@@ -1,4 +1,32 @@
-// @flow
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: spotify.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: spotify.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// @flow
 
 'use strict';
 
@@ -11,7 +39,7 @@ var currentTime, totalTime, paused, intervalfn; // use storage uphere
 
 var xmlH = new XMLHttpRequest();
 xmlH.onreadystatechange = function() {
-  if (xmlH.readyState == 4 && xmlH.status == 200) {
+  if (xmlH.readyState == 4 &amp;&amp; xmlH.status == 200) {
     var data = JSON.parse(xmlH.responseText);
     currentTime = parseInt(data.curr);
     totalTime = parseInt(data.total);
@@ -76,7 +104,7 @@ class SpotifyController {
           if (!window.playlist) {
             mopidy.tracklist.setConsume(true);
             var consume = document.getElementById('consume-toggle');
-            if (consume && !consume.classList.contains('on')) {
+            if (consume &amp;&amp; !consume.classList.contains('on')) {
               consume.classList.add('on');
             }
             var volume = document.getElementById('music-volume-control').value;
@@ -90,7 +118,7 @@ class SpotifyController {
                 mopidy.playlists.getPlaylists().then(function (playlists) {
                   console.log("Loading playlist");
                   var playlist;
-                  for (var i = 0; i < playlists.length; i++) {
+                  for (var i = 0; i &lt; playlists.length; i++) {
                     if (playlists[i].name == "MSP Fall 2018") {
                       playlist = playlists[i];
                     }
@@ -247,7 +275,7 @@ const MAX_PREV_IMAGES = 2;
 function updateCoverArt(trackUri, imgs) {
 	const [image] = imgs[trackUri];
 	var elem = document.getElementById('current-track-image');
-  if (elem.src && elem.src != image.uri) {
+  if (elem.src &amp;&amp; elem.src != image.uri) {
     if (prevTrackImages.length == MAX_PREV_IMAGES) {
       prevTrackImages.pop();
     }
@@ -257,7 +285,7 @@ function updateCoverArt(trackUri, imgs) {
       width: elem.width
     });
   }
-  for (var i = 0; i < prevTrackImages.length; i++) {
+  for (var i = 0; i &lt; prevTrackImages.length; i++) {
     var t = document.getElementById('prev-track-image-' + (i+1));
     t.setAttribute("src", prevTrackImages[i].src);
     var scale = (100 - ((i+1) * 10)) / 100;
@@ -286,7 +314,7 @@ function updateTimeBar() {
   var _minutes = parseInt(_copy / 60);
   var _copy = _copy - (_minutes * 60);
   var _seconds = _copy;
-  if (_seconds <= 9) {
+  if (_seconds &lt;= 9) {
     _seconds = '0' + _seconds;
   }
   displayCurrentTime = `${_minutes}:${_seconds}`;
@@ -297,7 +325,7 @@ function updateTimeBar() {
   _minutes = parseInt(_copy / 60);
   _copy = _copy - (_minutes * 60);
   _seconds = _copy;
-  if (_seconds <= 9) {
+  if (_seconds &lt;= 9) {
     _seconds = '0' + _seconds;
   } 
   displayTotalTime = `${_minutes}:${_seconds}`;
@@ -305,4 +333,26 @@ function updateTimeBar() {
 
   var width = (currentTime / totalTime) * 100;
   document.getElementById('time-bar').style.width = width + '%';
-}
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addTrackToQueue">addTrackToQueue</a></li><li><a href="global.html#buildDynamicWeatherFull">buildDynamicWeatherFull</a></li><li><a href="global.html#changeBgGradient">changeBgGradient</a></li><li><a href="global.html#changeTheme">changeTheme</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#containers">containers</a></li><li><a href="global.html#copyTrackURI">copyTrackURI</a></li><li><a href="global.html#currSlide">currSlide</a></li><li><a href="global.html#displayAllTimes">displayAllTimes</a></li><li><a href="global.html#displayDynamicContent">displayDynamicContent</a></li><li><a href="global.html#displayWeather">displayWeather</a></li><li><a href="global.html#enableClippy">enableClippy</a></li><li><a href="global.html#generateDepartureLi">generateDepartureLi</a></li><li><a href="global.html#generateList">generateList</a></li><li><a href="global.html#getWeatherDirectionUnicode">getWeatherDirectionUnicode</a></li><li><a href="global.html#ilistAllowDrop">ilistAllowDrop</a></li><li><a href="global.html#ilistDrag">ilistDrag</a></li><li><a href="global.html#ilistDropDelete">ilistDropDelete</a></li><li><a href="global.html#playTrack">playTrack</a></li><li><a href="global.html#refreshTransitTimes">refreshTransitTimes</a></li><li><a href="global.html#searchSpotify">searchSpotify</a></li><li><a href="global.html#slideShow">slideShow</a></li><li><a href="global.html#toggleConsume">toggleConsume</a></li><li><a href="global.html#toggleContent">toggleContent</a></li><li><a href="global.html#toggleDynamicPages">toggleDynamicPages</a></li><li><a href="global.html#toggleMute">toggleMute</a></li><li><a href="global.html#toggleSearch">toggleSearch</a></li><li><a href="global.html#toggleSpotifyDiv">toggleSpotifyDiv</a></li><li><a href="global.html#toggleThemePicker">toggleThemePicker</a></li><li><a href="global.html#trackNum">trackNum</a></li><li><a href="global.html#updateCoverArt">updateCoverArt</a></li><li><a href="global.html#updateTimeBar">updateTimeBar</a></li><li><a href="global.html#uri">uri</a></li><li><a href="global.html#volumeChanged">volumeChanged</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri May 03 2019 11:37:44 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
