@@ -8,7 +8,6 @@
   text-align: center;
   overflow: hidden;
 }
-
 .section1 { /*header*/
   grid-column: 1 / span 12;
   grid-row: 1 / span 2;
@@ -29,30 +28,10 @@
   grid-column: 1 / span 3;
   grid-row: 6 / span 6;
 }
-
-.section5 { /*7day*/
-  grid-column: 1 / span 3;
-  grid-row: 11 / span 2;
-}
-
-.section6 { /*previous*/
-  grid-column: 5 / span 2;
-  grid-row: 10 / span 2;
-}
-.section7 { /*play and pause*/
-  grid-column: 6 / span 2;
-  grid-row: 10 / span 2;
-}
 .section8 { /*next*/
   grid-column: 4 / span 6;
   grid-row: 11 / span 2;
 }
-
-.section9 { /*footer*/
-  grid-column: 4 / span 6;
-  grid-row: 11 / span 1;
-}
-
 .section10 { /*transit*/
   grid-column: 10 / span 3;
   grid-row: 3 / span 9;

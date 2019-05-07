@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const Mopidy = require('mopidy');
+var fs = require('fs');
 
 const mopidy = new Mopidy({
 	webSocketUrl : 'ws://192.168.140.99:6680/mopidy/ws'
