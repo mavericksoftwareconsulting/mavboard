@@ -66,3 +66,56 @@ npm run flow
 This script will report any type errors and warnings for you to fix. 
 
 *_remember to compile with `npm run compile` in order to see your changes when mavboard is running_*
+
+## In Case of Emergencies
+
+Sometimes chromium-broswer will seg fault and cause us to have to reburn the disk image file for the pi and start from scratch.  If this happens, here is a step by step guide for gettign it set back up.
+
+* Run the following on the pi `$ sudo shutdown -h now`
+* Remove the power chord and the micro SD card from the pi
+* Plug the micro SD card into your laptop and flash the image over (either a fresh copy or a backup)
+  * I use etcher by resign.io for flashing the image over
+* After the image is flashed to the SD card, eject it and safely remove it, then place it back in the PI
+* Switch the HDMI cables to the desktop monitor and plug the power chord back in.
+* Go through the setup for the PI, changing the timezone to central/chicago and enabling US Keyboard
+* Update the PI (tutorial ends with this).
+* After PI updates run `$ sudo reboot`
+* When the pi starts back up install NodeJS
+  * `$ sudo apt-get update`
+  * `$ sudo apt-get dist-upgrade`
+  * `$ curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -`
+  * `$ sudo apt-get install -y nodejs`
+  * Running `$ node -v` will test if the install was successful
+* Clone the repository to `~/Desktop/git_repos/mavboard` or someother location
+* Run `$ sudo npm install` to install all the needed NodeJS packages
+* Now we will need to set up the crontab to run jobs (if the autostart does not work run `$ sudo chmod +x` on it
+* Run `$ crontab -e` or with `sudo` if permission errors arise
+* Choose nano as the editor of choice
+* The setup for a task is `minutes hours day-of-month month day-of-week task`
+* We will add the following tasks
+  * `30 8 * * * ~/Desktop/git_repos/mavboard/autostart.sh`
+  * `30 20 * * * root reboot`
+* `$ crontab -l` will list all jobs and the previous ones should show up if done correctly
+* Now we need to disable the sleep mode for the PI
+* `$ sudo nano /etc/lightdm/lightdm.conf` will open the file we need
+* Locate the section labelled `[SeatDefault]` and `[Seat*]`
+* Add `xserver-command=X -s 0 dpms` to both sections (this must be added to these sections or it won't work)
+* Then Ctr-X y <enter> to save the changes
+* Next we need to enable SSH for the PI
+* Run `sudo raspi-config` and enable SSH
+* Open the IP config file to change the static IP address
+  * `$ sudo nano /etc/dhcpcd.conf`
+  * Locate the *interface eth0* section
+  * Add The following so it looks like this
+  
+```sh
+interface eth0
+static ip_address=192.168.140.98/24
+static routers=192.168.140.254
+static domain_name_servers=8.8.8.8 8.8.4.4
+```
+
+* Then reboot the PI
+* When it reboots run `$ ping google.com` to make sure the configuration is working properly.
+
+The PI should now be good to go for general use.
