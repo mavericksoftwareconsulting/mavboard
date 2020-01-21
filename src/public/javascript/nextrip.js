@@ -29,6 +29,7 @@ function displayAllTimes() {
 function refreshTransitTimes(stopID, marquee) {
   var http = new XMLHttpRequest();
 
+
   http.onreadystatechange = () => {
     if (http.readyState == 4 && http.status == 200) {
       var uniqueRoute = [];
@@ -55,8 +56,11 @@ function refreshTransitTimes(stopID, marquee) {
     }
   };
 
-  var url = "http://svc.metrotransit.org/NexTrip/" + stopID;
+  var url = "https://svc.metrotransit.org/NexTrip/" + stopID;
   http.open("GET", url, true);
+  //http.setRequestHeader('Access-Control-Allow-Headers', '*');
+ // http.setRequestHeader('Content-type', '*');
+  // http.setRequestHeader('Access-Control-Allow-Origin', '*');
   http.send();
 }
 

@@ -17,8 +17,8 @@
     "darkskyjs": "^0.2.1",
     "debug": "^4.1.1",
     "express": "^4.17.1",
-    "express-hbs": "^2.1.2",
-    "hbs": "^4.0.4",
+    "express-hbs": "^2.3.0",
+    "hbs": "^4.1.0",
     "morgan": "^1.9.1",
     "pug": "^2.0.3",
     "serve-favicon": "^2.5.0"
@@ -28,6 +28,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-flow": "^6.23.0",
     "flow-bin": "^0.101.0",
+    "http-proxy-middleware": "^0.20.0",
     "mopidy": "^1.0.1"
   },
   "engines": {
